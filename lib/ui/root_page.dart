@@ -1,10 +1,11 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:first_plat_app/appStyle/app_styles.dart';
+import 'package:first_plat_app/models/plants.dart';
 import 'package:first_plat_app/screen/cart_page.dart';
 import 'package:first_plat_app/screen/farorite_page.dart';
 import 'package:first_plat_app/screen/home_page.dart';
 import 'package:first_plat_app/screen/profile_page.dart';
-import 'package:first_plat_app/ui/login_page.dart';
+import 'package:first_plat_app/ui/sigin_page.dart';
 import 'package:first_plat_app/ui/scan_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -19,13 +20,22 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
+  List<Plant> favorite = [];
+  List<Plant> myCart = [];
   int _bottomNavIndex = 0;
-  List<Widget> page = const [
-    HomePage(),
-    FavoritePage(),
-    ProfilePage(),
-    CartPage()
-  ];
+  List<Widget> _widgetOptionPlants() {
+    return [
+      HomePage(),
+      FavoritePage(
+        favoritePlants: favorite,
+      ),
+      CartPage(
+        addToCartPlant: myCart,
+      ),
+      ProfilePage(),
+    ];
+  }
+
   List<IconData> iconList = [
     Icons.home,
     Icons.favorite,
@@ -61,7 +71,7 @@ class _RootPageState extends State<RootPage> {
       ),
       body: IndexedStack(
         index: _bottomNavIndex,
-        children: page,
+        children: _widgetOptionPlants(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -89,6 +99,10 @@ class _RootPageState extends State<RootPage> {
           onTap: (index) {
             setState(() {
               _bottomNavIndex = index;
+              final List<Plant> favoritePlant = Plant.getFavoritedPlant();
+              final List<Plant> addedTocartPlant = Plant.addedToCartPlants();
+              favorite = favoritePlant;
+              myCart = addedTocartPlant.toSet().toList();
             });
           }),
     );

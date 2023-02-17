@@ -1,6 +1,7 @@
 import 'package:first_plat_app/appStyle/app_styles.dart';
 import 'package:first_plat_app/models/plants.dart';
 import 'package:first_plat_app/screen/detail_page.dart';
+import 'package:first_plat_app/screen/widget/plant_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -228,78 +229,9 @@ class _HomePageState extends State<HomePage> {
                   itemCount: _plantList.length,
                   physics: BouncingScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          PageTransition(
-                              child: DetailPage(
-                                plantId: _plantList[index].plantId,
-                              ),
-                              type: PageTransitionType.bottomToTop),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AppStyles.primaryColor.withOpacity(.1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        height: 80.0,
-                        padding: EdgeInsets.only(left: 10, top: 10),
-                        margin: EdgeInsets.only(bottom: 10, top: 10),
-                        width: size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                Container(
-                                  width: 60.0,
-                                  height: 60.0,
-                                  decoration: BoxDecoration(
-                                      color: AppStyles.primaryColor
-                                          .withOpacity(.8),
-                                      shape: BoxShape.circle),
-                                ),
-                                Positioned(
-                                  bottom: 5,
-                                  left: 0,
-                                  right: 0,
-                                  child: SizedBox(
-                                    height: 80.0,
-                                    child:
-                                        Image.asset(_plantList[index].imageURL),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 5,
-                                  left: 80,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(_plantList[index].category),
-                                      Text(
-                                        _plantList[index].plantName,
-                                        style: AppStyles().titleH6,
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(right: 10),
-                              child: Text(
-                                r'$' + _plantList[index].price.toString(),
-                                style: AppStyles().titleH5,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                    return widgetPlant(
+                      index: index,
+                      plantList: _plantList,
                     );
                   }),
             ),

@@ -15,6 +15,10 @@ class _DetailPageState extends State<DetailPage> {
     return !isFavorited;
   }
 
+  bool toggleIsSelected(bool isSelected) {
+    return !isSelected;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -203,17 +207,23 @@ class _DetailPageState extends State<DetailPage> {
               height: 50,
               width: 50,
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      bool isSelected = toggleIsSelected(
+                          _plantList[widget.plantId].isSelected);
+                      _plantList[widget.plantId].isSelected = isSelected;
+                    });
+                  },
                   icon: Icon(
                     Icons.shopping_cart,
                     color: _plantList[widget.plantId].isSelected == true
-                        ? Colors.white
+                        ? AppStyles.pWihte
                         : AppStyles.primaryColor,
                   )),
               decoration: BoxDecoration(
                   color: _plantList[widget.plantId].isSelected == true
-                      ? AppStyles.primaryColor.withOpacity(.5)
-                      : Colors.white,
+                      ? AppStyles.primaryColor
+                      : AppStyles.pWihte,
                   borderRadius: BorderRadius.circular(50),
                   boxShadow: [
                     BoxShadow(

@@ -1,6 +1,6 @@
 import 'package:first_plat_app/appStyle/app_styles.dart';
 import 'package:first_plat_app/appStyle/constants.dart';
-import 'package:first_plat_app/ui/login_page.dart';
+import 'package:first_plat_app/ui/sigin_page.dart';
 import 'package:first_plat_app/ui/root_page.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +27,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: InkWell(
               onTap: () {
                 Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) => RootPage()));
+                    context, MaterialPageRoute(builder: (_) => SigIn()));
               },
               child: Text(
                 "Skip",
@@ -92,7 +92,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       }
                     } else {
                       Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (_) => const RootPage()));
+                          MaterialPageRoute(builder: (_) => const SigIn()));
                     }
                   });
                 },
